@@ -14,7 +14,7 @@ class Game {
     static xPlays(e){                       // logs click (and X) to array element
         if(this.gameOver){
             return;
-        }
+        } 
         
         Display.setMessage("&nbsp;");
         let pos = e.srcElement.id;
@@ -32,9 +32,9 @@ class Game {
             }
         this.oPlays();
         Display.boardRefresh();             // tell the display to update                      
-    }
-
-    static didXWin() {                      // PROBLEM THIS SECTION -- checks whether the human player has won
+    } 
+ 
+    static didXWin() {                      // PROBLEM  -- checks whether the human player has won
         let win = true;
         // check the rows:
         for (let i = 0; i < Game.board.length; i += 3){
@@ -48,9 +48,10 @@ class Game {
             if(win){
                 return win;
             } 
-        }
-        // check the columns:
-        win = false;
+        } 
+        // check the columns: 
+        
+        win = true;
         for (let i = 0; i < 3; i ++){
             win = true;
             for (let j = 0; j < Game.board.length; j+= 3) {
@@ -62,9 +63,9 @@ class Game {
             if(win){
                 return win;
             } 
-        }
-        // check the diagonals: PROBLEM IN THIS SECTION
-        /*
+        } 
+        // check the diagonals: PROBLEM IN THIS SECTION  
+       
         win = true;
         for (let i = 0; i < this.board.length; i += 4){
                 if(Game.board[i] !== this.XPLAYER){
@@ -79,14 +80,13 @@ class Game {
         }
 
         win = true;
-        for let i = 2; i < 7; i +=2{
+        for (let i = 2; i < 7; i +=2){
             win = false;
             break;
         }
         if(win){
             return win;
         }
-            */
 
         }
         // output an outcome message of win, loss, or tie:
@@ -99,7 +99,7 @@ class Game {
         Display.boardRefresh();             // displays the reset board
         this.gameOver = false;
 
-    }
+    }  
 
     static oPlays(){                        // create oPlays method for Computer play
         for(let i = 0; i < Game.board.length; i++){
@@ -110,6 +110,6 @@ class Game {
         }
     }
 }   
-
+  
 
 

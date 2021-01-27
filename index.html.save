@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width id='0'=device-width id='0', initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet" >
+    <title>Tic Tac Toe</title>
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <table class ="table">
+     <tr>
+            <th id='0' onclick="Game.xPlays(event);" class='border border-secondary border-top-0 border-start-0'> O</th>
+            <th id='1' onclick="Game.xPlays(event);" class='border border-secondary border-top-0 border-start-0'> X</th>
+            <th id='2' onclick="Game.xPlays(event);" class='border border-secondary border-top-0 border-end-0'> O</th >
+     </tr>
+            
+     <tr>
+            <th id='3' onclick="Game.xPlays(event);" class='border border-secondary border-top-0 border-start-0'> X</th>
+            <th id='4' onclick="Game.xPlays(event);" class='border border-secondary border-top border-start-0'> O</th>
+            <th id='5' onclick="Game.xPlays(event);" class='border border-secondary border-top-0 border-end-0'> O</th>
+    </tr>
+
+    <tr>
+            <th id='6' onclick="Game.xPlays(event);" class='border border-secondary border-bottom-0 border-start-0'> O</th>
+            <th id='7' onclick="Game.xPlays(event);" class='border border-secondary border-bottom-0 border-start-0'> X</th>
+            <th id='8' onclick="Game.xPlays(event);" class='border border-secondary border-bottom-0 border-end-0'> O</th>
+    </tr>
+
+    </table>
+
+    <h3 id="message"> Cat's Game!</h3>
+
+    <button class="button" onclick="Game.reset()" id="resetbutton"> New Game </button>
+
+    <!-- Optional JavaScript; choose one of th id='0'e two! -->
+
+    <!-- Option 1: Bootstrap Bundle with id='0' Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="js/game.js"></script> <!-- link to JS -->
+        <script src="js/Display.js"></script>
+        <script src="js/default.js"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+
