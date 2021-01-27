@@ -34,7 +34,7 @@ class Game {
         Display.boardRefresh();             // tell the display to update                      
     }
 
-    static didXWin() {                      // checks whether the human player has won
+    static didXWin() {                      // PROBLEM THIS SECTION -- checks whether the human player has won
         let win = true;
         // check the rows:
         for (let i = 0; i < Game.board.length; i += 3){
@@ -50,9 +50,45 @@ class Game {
             } 
         }
         // check the columns:
-        
-        // check the diagonals:
+        win = false;
+        for (let i = 0; i < 3; i ++){
+            win = true;
+            for (let j = 0; j < Game.board.length; j+= 3) {
+                if(Game.board[i + j] !== this.XPLAYER){
+                    win = false;
+                    break;
+                }
+            }
+            if(win){
+                return win;
+            } 
+        }
+        // check the diagonals: PROBLEM IN THIS SECTION
+        /*
+        win = true;
+        for (let i = 0; i < this.board.length; i += 4){
+                if(Game.board[i] !== this.XPLAYER){
+                    win = false;
+                    break;
+                }
+            }
+            
+            } 
+        if(win){
+            return win;
+        }
 
+        win = true;
+        for let i = 2; i < 7; i +=2{
+            win = false;
+            break;
+        }
+        if(win){
+            return win;
+        }
+            */
+
+        }
         // output an outcome message of win, loss, or tie:
     }
 
