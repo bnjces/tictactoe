@@ -64,32 +64,29 @@ class Game {
                 return win;
             } 
         } 
-        // check the diagonals: PROBLEM IN THIS SECTION  
-       
+
+        // check the diagonals: PROBLEM IN THIS SECTION       
         win = true;
         for (let i = 0; i < this.board.length; i += 4){
-                if(Game.board[i] !== this.XPLAYER){
-                    win = false;
-                    break;
-                }
+            if(Game.board[i] !== this.XPLAYER){
+                win = false;
+                break;
             }
-            
-            } 
+        }
+        // your curly braces were messed up here
         if(win){
             return win;
-        }
-
+        }        
+        //} extra brace was here 
         win = true;
-        for (let i = 2; i < 7; i +=2){
-            win = false;
-            break;
-        }
-        if(win){
-            return win;
-        }
-
-        }
         // output an outcome message of win, loss, or tie:
+        for (let i  = 2; i < 7; i += 2){
+            if(Game.board[i] !== this.XPLAYER){
+                win = false;
+                break;
+            }
+        }
+        return win;
     }
 
     static reset(){                         // makes the New Game button clear the board
@@ -98,7 +95,6 @@ class Game {
         }
         Display.boardRefresh();             // displays the reset board
         this.gameOver = false;
-
     }  
 
     static oPlays(){                        // create oPlays method for Computer play
