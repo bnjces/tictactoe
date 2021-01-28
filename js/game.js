@@ -67,7 +67,6 @@ class Game {
 
         // check the diagonals:        
         win = true;
-<<<<<<< HEAD
         let diag1 = true;
         let diag2 = true;
         for (let i = 0, j = 2; i < this.board.length; i += 4, j +=2){
@@ -82,26 +81,6 @@ class Game {
         
         return win;
     
-=======
-        for (let i = 0; i < this.board.length; i += 4){
-            if(Game.board[i] !== this.XPLAYER){
-                win = false;
-                break;
-            }
-        }
-        if(win){
-            return win;
-        }        
-        win = true;
-        // output an outcome message of win, loss, or tie:
-        for (let i  = 2; i < 7; i += 2){
-            if(Game.board[i] !== this.XPLAYER){
-                win = false;
-                break;
-            }
-        }
-        return win;
->>>>>>> c221b07041b724b945db53648f89c5996a9b5a9b
     }
 
     static reset(){                         // makes the New Game button clear the board
