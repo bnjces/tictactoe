@@ -65,7 +65,7 @@ class Game {
             } 
         } 
 
-        // check the diagonals: PROBLEM IN THIS SECTION       
+        // check the diagonals:        
         win = true;
         for (let i = 0; i < this.board.length; i += 4){
             if(Game.board[i] !== this.XPLAYER){
