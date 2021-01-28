@@ -88,24 +88,32 @@ class Game {
         let xCount = 0;
         let oCount = 0;
         let eCount = 0;
-        let tallyIndex = 0;     // index for the tally
-        
-        // check the rows:
-        for (let i = 0; i < Game.board.length; i += 3){
+        let tallyIndex = 0;     // index for the tally - use to keep track of which winning combo is possible
+
+        // check the rows:  
+        for (let i = 0; i < Game.board.length; i += 3) {
         win = true;
-        for (let j = 0; j < 3; j++) {
-            switch(Game.board[i + j]) {
-                case this.XPLAYER: 
-                    xCount++;
-                    break;
-                case this.OPLAYER:
-                    oCount++;
-                    break;
-                case this.EMPTY:
-                    eCount++;
-                    break;
+            for (let j = 0; j < 3; j++) {
+                switch(Game.board[i + j]) {
+                    case this.XPLAYER: 
+                        xCount++;
+                        break;
+                    case this.OPLAYER:
+                        oCount++;
+                        break;
+                    case this.EMPTY:
+                        eCount++;
+                        break;
+                }
             }
         }
+        tally[tallyIndex++] = [xCount, oCount, eCount];
+        xCount = 0;
+        oCount = 0;
+        eCount = 0; 
+     
+            
+
     }
 
     static reset(){                         // makes the New Game button clear the board
