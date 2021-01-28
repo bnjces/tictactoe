@@ -73,11 +73,9 @@ class Game {
                 break;
             }
         }
-        // your curly braces were messed up here
         if(win){
             return win;
         }        
-        //} extra brace was here 
         win = true;
         // output an outcome message of win, loss, or tie:
         for (let i  = 2; i < 7; i += 2){
@@ -107,5 +105,3 @@ class Game {
     }
 }   
   
-
-
