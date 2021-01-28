@@ -4,6 +4,9 @@ class Game {
     static OPLAYER = "O";                   // static constants are all caps
     static EMPTY = " ";
     static gameOver = false;
+    static TALLYXPLAYER = 0;                // array index into tally for xCount
+    static TALLYOPLAYER = 1;                // array index into tally for oCount
+    static TALLYEMPTY = 2;                  // array index into tally for eCount
 
     static board= [                         // make the game board, an array
         this.EMPTY, this.EMPTY, this.EMPTY,
@@ -34,7 +37,7 @@ class Game {
         Display.boardRefresh();             // tell the display to update                      
     } 
  
-    static didXWin() {                      // PROBLEM  -- checks whether the human player has won
+    static didXWin() {                      // checks whether the human player has won
         let win = true;
         // check the rows:
         for (let i = 0; i < Game.board.length; i += 3){
@@ -50,7 +53,6 @@ class Game {
             } 
         } 
         // check the columns: 
-        
         win = true;
         for (let i = 0; i < 3; i ++){
             win = true;
@@ -64,7 +66,6 @@ class Game {
                 return win;
             } 
         } 
-
         // check the diagonals:        
         win = true;
         let diag1 = true;
@@ -103,11 +104,12 @@ class Game {
                         break;
                     case this.EMPTY:
                         eCount++;
+                        emptyBox = i + j;   // saves empty spot for potential winning move
                         break;
                 }
             }
         }
-        tally[tallyIndex++] = [xCount, oCount, eCount];
+        tally[tallyIndex++] = [xCount, oCount, eCount, emptyBox];
         xCount = 0;
         oCount = 0;
         eCount = 0; 
