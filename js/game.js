@@ -83,6 +83,31 @@ class Game {
     
     }
 
+    static tallyBoard(){        // tally the entries on the board for strategy purposes
+        let tally = [];         // declare tally, set it equal to an array (for the input from the board)
+        let xCount = 0;
+        let oCount = 0;
+        let eCount = 0;
+        let tallyIndex = 0;     // index for the tally
+        
+        // check the rows:
+        for (let i = 0; i < Game.board.length; i += 3){
+        win = true;
+        for (let j = 0; j < 3; j++) {
+            switch(Game.board[i + j]) {
+                case this.XPLAYER: 
+                    xCount++;
+                    break;
+                case this.OPLAYER:
+                    oCount++;
+                    break;
+                case this.EMPTY:
+                    eCount++;
+                    break;
+            }
+        }
+    }
+
     static reset(){                         // makes the New Game button clear the board
         for(let i = 0; i < Game.board.length; i++){
             this.board[i] = this.EMPTY;     // resets board
