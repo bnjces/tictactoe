@@ -64,32 +64,23 @@ class Game {
                 return win;
             } 
         } 
-        // check the diagonals: PROBLEM IN THIS SECTION  
-       
+
+        // check the diagonals:        
         win = true;
-        for (let i = 0; i < this.board.length; i += 4){
-                if(Game.board[i] !== this.XPLAYER){
-                    win = false;
-                    break;
-                }
+        let diag1 = true;
+        let diag2 = true;
+        for (let i = 0, j = 2; i < this.board.length; i += 4, j +=2){
+            if(Game.board[i] !== this.XPLAYER){
+                diag1 = false;
             }
-            
-            } 
-        if(win){
-            return win;
+            if(Game.board[j] !== this.XPLAYER){
+                diag2 = false;
+            }
         }
-
-        win = true;
-        for (let i = 2; i < 7; i +=2){
-            win = false;
-            break;
-        }
-        if(win){
-            return win;
-        }
-
-        }
-        // output an outcome message of win, loss, or tie:
+        win = diag1 || diag2
+        
+        return win;
+    
     }
 
     static reset(){                         // makes the New Game button clear the board
@@ -98,7 +89,6 @@ class Game {
         }
         Display.boardRefresh();             // displays the reset board
         this.gameOver = false;
-
     }  
 
     static oPlays(){                        // create oPlays method for Computer play
@@ -111,5 +101,3 @@ class Game {
     }
 }   
   
-
-
