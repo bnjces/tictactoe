@@ -1,8 +1,35 @@
 h1, h3, th, button {
     text-align: center;
+    color: #66B032;
 }
 
-body { background-color: aliceblue;
+button {
+    display: block;
+    margin: auto;
+    align-content: center;
+    color: #091534;
+    border-radius: 12px;
+    width: 40%;
+    background-color: #347B98;
+    color: #E3F7D4;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transform: scale(1.2);
+}
 
+button:hover {
+    animation-name: background-color;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes background-color {
+    100% {
+        background-color: #0247FE;
+    }
+}
+
+body { 
+    background-color: #E3F7D4;
 }
 
