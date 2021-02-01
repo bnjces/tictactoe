@@ -1,138 +1,221 @@
 class Game {
 
-    static XPLAYER = "X";                   // create strings for X, O, blank
-    static OPLAYER = "O";                   // static constants are all caps
-    static EMPTY = " ";
     static gameOver = false;
-    static TALLYXPLAYER = 0;                // array index into tally for xCount
-    static TALLYOPLAYER = 1;                // array index into tally for oCount
-    static TALLYEMPTY = 2;                  // array index into tally for eCount
-
-    static board= [                         // make the game board, an array
+    static XPLAYER = "X";       // create strings for X, O, blank
+    static OPLAYER = "O";       // static constants are all caps
+    static EMPTY = " "
+    static TALLYXPLAYER = 0;    // array index into tally for xCount
+    static TALLYOPLAYER = 1;    // array index into tally for oCount
+    static TALLYBSQUARE = 2;    // array index into tally for empty Count
+    static TALLYBINDEX = 3;     // location of last empty square
+    static board = [            // make the game board, an array
         this.EMPTY, this.EMPTY, this.EMPTY,
         this.EMPTY, this.EMPTY, this.EMPTY,
         this.EMPTY, this.EMPTY, this.EMPTY
-    ]    
-    
-    static xPlays(e){                       // logs click (and X) to array element
+    ]
+
+    static xPlays(e){           // logs click (and X) to array element
         if(this.gameOver){
             return;
-        } 
-        
+        }
         Display.setMessage("&nbsp;");
         let pos = e.srcElement.id;
         console.log(pos);
-            if(this.board[pos] !== this.EMPTY){  // ensures that X can only be placed in a blank spot
-                Display.setMessage ("Your mother smells of elderberries. Pick an empty spot.")
-                return;
-            }
+        if(this.board[pos] !== this.EMPTY){ // ensures that X can only be placed in a blank spot
+            Display.setMessage("Your mother smells of elderberries. Pick an empty spot.");
+            return;
+        }
         this.board[pos] = this.XPLAYER;
-        if(this.didXWin()){                 // check if X won, and display message
+        if(this.didWin(this.XPLAYER)){      // check if X won, and display message
             Display.boardRefresh();
-            Display.setMessage("Congratulations! You win!");
+            Display.setMessage("X wins!");
             this.gameOver = true;
             return;
-            }
-        this.oPlays();
-        Display.boardRefresh();             // tell the display to update                      
-    } 
- 
-    static didXWin() {                      // checks whether the human player has won
-        let win = true;
-        // check the rows:
-        for (let i = 0; i < Game.board.length; i += 3){
-            win = true;
-            for (let j = 0; j < 3; j++) {
-                if(Game.board[i + j] !== this.XPLAYER){
-                    win = false;
-                    break;
-                }
-            }
-            if(win){
-                return win;
-            } 
-        } 
-        // check the columns: 
-        win = true;
-        for (let i = 0; i < 3; i ++){
-            win = true;
-            for (let j = 0; j < Game.board.length; j+= 3) {
-                if(Game.board[i + j] !== this.XPLAYER){
-                    win = false;
-                    break;
-                }
-            }
-            if(win){
-                return win;
-            } 
-        } 
-        // check the diagonals:        
-        win = true;
-        let diag1 = true;
-        let diag2 = true;
-        for (let i = 0, j = 2; i < this.board.length; i += 4, j +=2){
-            if(Game.board[i] !== this.XPLAYER){
-                diag1 = false;
-            }
-            if(Game.board[j] !== this.XPLAYER){
-                diag2 = false;
-            }
         }
-        win = diag1 || diag2
-        
-        return win;
-    
+        this.oPlays();
+        let result = this.tallyBoard();
+        if(this.didWin(this.OPLAYER)){
+            Display.boardRefresh();
+            Display.setMessage("You get nothing! You lose, good day sir!");
+            this.gameOver = true;
+        }
+        Display.boardRefresh();             // tell the display to update
     }
 
-    static tallyBoard(){        // tally the entries on the board for strategy purposes
-        let tally = [];         // declare tally, set it equal to an array (for the input from the board)
+    static didWin(thePlayer){               // checks whether the human player has won
+        let player;
+        if(thePlayer === this.XPLAYER){
+            player = this.TALLYXPLAYER;
+        } else {
+            player = this.TALLYOPLAYER;
+        }
+        let tally = this.tallyBoard();
+        for(let i = 0; i < tally.length; i++){
+            if(tally[i][player] === 3){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static reset(){
+        for(let i = 0; i < Game.board.length; i++){
+            this.board[i]  =  this.EMPTY;
+        }
+        Display.boardRefresh();
+        this.gameOver = false;
+    }
+
+    static tallyBoard(){
+
+        let tally = [];
         let xCount = 0;
         let oCount = 0;
         let eCount = 0;
-        let tallyIndex = 0;     // index for the tally - use to keep track of which winning combo is possible
+        let emptyBox;
+        let tallyIndex = 0;
 
-        // check the rows:  
-        for (let i = 0; i < Game.board.length; i += 3) {
-        win = true;
-            for (let j = 0; j < 3; j++) {
-                switch(Game.board[i + j]) {
-                    case this.XPLAYER: 
-                        xCount++;
-                        break;
+        // check the rows
+        for(let i = 0; i < this.board.length; i += 3){
+            for( let j = 0; j < 3; j++){
+               switch(Game.board[i + j] ) {
+                   case this.XPLAYER:
+                       xCount++;
+                       break;
                     case this.OPLAYER:
                         oCount++;
                         break;
                     case this.EMPTY:
                         eCount++;
-                        emptyBox = i + j;   // saves empty spot for potential winning move
+                        emptyBox = i + j;
                         break;
-                }
+               } 
             }
+            tally[tallyIndex++] = [xCount, oCount, eCount, emptyBox];
+            xCount = 0;
+            oCount = 0;
+            eCount = 0;
         }
-        tally[tallyIndex++] = [xCount, oCount, eCount, emptyBox];
+
         xCount = 0;
         oCount = 0;
-        eCount = 0; 
-     
-            
+        eCount = 0;
+        // check the columns
+        for(let i = 0; i < 3; i++){
+            for( let j = 0; j < this.board.length; j += 3){
+                switch(Game.board[i + j] ) {
+                    case this.XPLAYER:
+                        xCount++;
+                        break;
+                     case this.OPLAYER:
+                         oCount++;
+                         break;
+                     case this.EMPTY:
+                         eCount++;
+                         emptyBox = i + j;
+                         break;
+                } 
+            }
+            tally[tallyIndex++] = [xCount, oCount, eCount, emptyBox];
+            xCount = 0;
+            oCount = 0;
+            eCount = 0;
+        }
 
+       // check the diagonals
+       xCount = 0;
+       oCount = 0;
+       eCount = 0;
+       let xCount1 = 0;
+       let oCount1 = 0;
+       let eCount1 = 0;
+       let emptyBox1;
+   for(let i = 0, j = 2; i < this.board.length; i += 4 , j += 2){
+                switch (Game.board[i]){
+                    case this.XPLAYER:
+                        xCount++;
+                        break;
+                     case this.OPLAYER:
+                         oCount++;
+                         break;
+                     case this.EMPTY:
+                         eCount++;
+                         emptyBox = i;
+                         break;
+                }
+
+                switch(Game.board[j]) {
+                    case this.XPLAYER:
+                        xCount1++;
+                        break;
+                     case this.OPLAYER:
+                         oCount1++;
+                         break;
+                     case this.EMPTY:
+                         eCount1++;
+                         emptyBox1 = j;
+                         break;
+                }               
+        }
+        tally[tallyIndex++] = [xCount, oCount, eCount, emptyBox];
+        tally[tallyIndex++] = [xCount1, oCount1, eCount1, emptyBox1];
+        return tally;
     }
 
-    static reset(){                         // makes the New Game button clear the board
+    static reset(){
         for(let i = 0; i < Game.board.length; i++){
-            this.board[i] = this.EMPTY;     // resets board
+            this.board[i]  =  this.EMPTY;
         }
-        Display.boardRefresh();             // displays the reset board
+        Display.boardRefresh();
         this.gameOver = false;
-    }  
+    }
 
-    static oPlays(){                        // create oPlays method for Computer play
+
+    static oCanWin(){
+        let tally = this.tallyBoard();
+        for(let i = 0; i < tally.length; i++){
+            if(tally[i][this.TALLYOPLAYER] === 2 &&
+               tally[i][this.TALLYBSQUARE] === 1 ){
+                return tally[i][this.TALLYBINDEX];
+            }
+        }
+        return -1;
+    }
+
+    static oCanBlock(){
+        let tally = this.tallyBoard();
+        for(let i = 0; i < tally.length; i++){
+            if(tally[i][this.TALLYXPLAYER] === 2 &&
+               tally[i][this.TALLYBSQUARE] === 1 ){
+                return tally[i][this.TALLYBINDEX];
+            }
+        }
+        return -1;
+    }
+
+    static oPlays(){
+        //First, check if next move can win
+        let winSquare = this.oCanWin();
+        if( winSquare > -1){
+            this.board[winSquare] = this.OPLAYER;
+            return;   
+        }
+
+        //If a winning move is not available, is a block available
+        let blockSquare = this.oCanBlock();
+        if( blockSquare > -1){
+            this.board[blockSquare] = this.OPLAYER;
+            return;   
+        }
+
+
+
+        //Pick the next available open square
         for(let i = 0; i < Game.board.length; i++){
-            if(this.board[i] === this.EMPTY){ // finds empty spot in board to make a play
-                this.board[i] = this.OPLAYER; // places an O in that empty spot
-                return;                       // stop looking for more empty spaces else it will continue forever
+            if(this.board[i] === this.EMPTY){
+                this.board[i] = this.OPLAYER;
+                return;
             }
         }
     }
-}   
-  
+}
