@@ -28,7 +28,7 @@ class Game {
         this.board[pos] = this.XPLAYER;
         if(this.didWin(this.XPLAYER)){      // check if X won, and display message
             Display.boardRefresh();
-            Display.setMessage("X wins!");
+            Display.setMessage("Congratulations, you won!");
             this.gameOver = true;
             return;
         }
@@ -215,7 +215,12 @@ class Game {
             if(this.board[i] === this.EMPTY){
                 this.board[i] = this.OPLAYER;
                 return;
+                
             }
+            Display.boardRefresh();         // Tie game display message!
+            Display.setMessage("It's a tie. Please try a new game.");
+            
         }
+    this.gameOver = true;
     }
 }
