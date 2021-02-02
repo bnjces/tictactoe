@@ -207,7 +207,11 @@ class Game {
             this.board[blockSquare] = this.OPLAYER;
             return;   
         }
-
+        // If center square is blank, O plays it 
+        if (this.board[4]  ===  this.EMPTY;){
+            this.board[4] = this.OPLAYER;
+            return;
+        }
 
 
         //Pick the next available open square
@@ -217,10 +221,10 @@ class Game {
                 return;
                 
             }
-            Display.boardRefresh();         // Tie game display message!
-            Display.setMessage("It's a tie. Please try a new game.");
+            Display.boardRefresh();         // Tie game display message! Del if error.
+            Display.setMessage("It's a tie. Please try a new game."); // Tie game msg.
             
         }
-    this.gameOver = true;
+    this.gameOver = true;                   // Tie game reset. If errors, delete this.
     }
 }
