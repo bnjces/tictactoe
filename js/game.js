@@ -40,7 +40,7 @@ class Game {
         let result = this.tallyBoard();
         if(this.didWin(this.OPLAYER)){
             Display.boardRefresh();
-            Display.setMessage("You get nothing! You lose, good day sir!");
+            Display.setMessage("You get nothing! You lose, good day sir! <br>");
             var img = document.createElement('img'); 
             img.src ='https://media2.giphy.com/media/10h8CdMQUWoZ8Y/giphy-downsized-large.gif'; 
             document.getElementById("message").appendChild(img); 
@@ -199,8 +199,17 @@ class Game {
         }
         return -1;
     }
-
-
+    
+    static oCanMove(){                  // O makes an optimal move, if a spot is available
+        let tally = this.tallyBoard();
+        for(let i = 0; i < tally.length; i++){
+            if(tally[i][this.TALLYOPLAYER] === 1 &&
+               tally[i][this.TALLYBSQUARE] === 2 ){
+                return tally[i][this.TALLYBINDEX];
+            }
+        }
+        return -1;
+    } 
 
     static oPlays(){
         //First, check if next move can win
@@ -216,11 +225,17 @@ class Game {
             this.board[blockSquare] = this.OPLAYER;
             return;   
         }
-           
-         // terrible initial attempt, delete this filth
+        // Choose the center spot, if available
         if (this.board[4]  ===  this.EMPTY){
             this.board[4] = this.OPLAYER;
             return; 
+        } 
+        // Choose an optimal position (i.e. adjacent to an already chosen spot)
+        
+        let moveSquare = this.oCanMove();
+        if (moveSquare > -1){
+            this.board[moveSquare] = this.OPLAYER;
+            return;
         } 
 
         //Pick the next available open square
