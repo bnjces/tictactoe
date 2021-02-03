@@ -37,6 +37,9 @@ class Game {
         if(this.didWin(this.OPLAYER)){
             Display.boardRefresh();
             Display.setMessage("You get nothing! You lose, good day sir!");
+            var img = document.createElement('img'); 
+            img.src ='https://media2.giphy.com/media/10h8CdMQUWoZ8Y/giphy-downsized-large.gif'; 
+            document.getElementById("message").appendChild(img); 
             this.gameOver = true;
         }
         Display.boardRefresh();             // tell the display to update
