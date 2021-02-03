@@ -28,9 +28,13 @@ class Game {
         this.board[pos] = this.XPLAYER;
         if(this.didWin(this.XPLAYER)){      // check if X won, and display message
             Display.boardRefresh();
-            Display.setMessage("Congratulations, you won!");
+            Display.setMessage("Congratulations, you won! <br>");
+            var img = document.createElement('img'); 
+            img.src ='https://media1.giphy.com/media/cOtvwSHKaFK3Ul1VVu/giphy.gif?cid=ecf05e4721f0044107f4d1b1a697c50101953d3baa58edb5&rid=giphy.gif'; 
+            document.getElementById("message").appendChild(img); 
             this.gameOver = true;
             return;
+            Display.boardRefresh();  
         }
         this.oPlays();
         let result = this.tallyBoard();
@@ -237,7 +241,10 @@ class Game {
             } 
         }
     Display.boardRefresh();         // Tie game display message! 
-    Display.setMessage("It's a tie. Please try a new game."); 
+    Display.setMessage("It's a tie. Please try a new game. <br> <br> "); 
+    var img = document.createElement('img'); 
+    img.src ='https://media4.giphy.com/media/Bp5dwyOW9BwbK/giphy.gif?cid=ecf05e47yamm8wyd10p6jf3ir0n0tbaqu515hsf22crq90io&rid=giphy.gif'; 
+    document.getElementById("message").appendChild(img); 
     this.gameOver = true;                   // Tie game reset. 
     }
 }
