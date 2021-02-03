@@ -200,9 +200,7 @@ class Game {
         return -1;
     }
 
-     /* static oGrabCenter();{              // utter nonsense connected to center square, delete
-        let centerSquare = this.board[4];
-    } */
+
 
     static oPlays(){
         //First, check if next move can win
@@ -218,20 +216,12 @@ class Game {
             this.board[blockSquare] = this.OPLAYER;
             return;   
         }
-        /* // If center square is blank, O plays it : this section is breaking everything
-        let centerSquare = this.oGrabCenter();
-        if (centerSquare = this.EMPTY;) {
-            this.board[4] = this.OPLAYER;
-            return;
-        }
-        */
            
-        /* terrible initial attempt, delete this filth
-        if (this.board[4]  ===  this.EMPTY;){
+         // terrible initial attempt, delete this filth
+        if (this.board[4]  ===  this.EMPTY){
             this.board[4] = this.OPLAYER;
-            return;
-        } */ 
-
+            return; 
+        } 
 
         //Pick the next available open square
         for(let i = 0; i < Game.board.length; i++){
