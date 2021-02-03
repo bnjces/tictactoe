@@ -193,6 +193,10 @@ class Game {
         return -1;
     }
 
+     /* static oGrabCenter();{              // utter nonsense connected to center square, delete
+        let centerSquare = this.board[4];
+    } */
+
     static oPlays(){
         //First, check if next move can win
         let winSquare = this.oCanWin();
@@ -207,11 +211,19 @@ class Game {
             this.board[blockSquare] = this.OPLAYER;
             return;   
         }
-        // If center square is blank, O plays it 
-        if (this.board[4]  ===  this.EMPTY;){
+        /* // If center square is blank, O plays it : this section is breaking everything
+        let centerSquare = this.oGrabCenter();
+        if (centerSquare = this.EMPTY;) {
             this.board[4] = this.OPLAYER;
             return;
         }
+        */
+           
+        /* terrible initial attempt, delete this filth
+        if (this.board[4]  ===  this.EMPTY;){
+            this.board[4] = this.OPLAYER;
+            return;
+        } */ 
 
 
         //Pick the next available open square
@@ -219,12 +231,10 @@ class Game {
             if(this.board[i] === this.EMPTY){
                 this.board[i] = this.OPLAYER;
                 return;
-                
-            }
-            Display.boardRefresh();         // Tie game display message! Del if error.
-            Display.setMessage("It's a tie. Please try a new game."); // Tie game msg.
-            
+            } 
         }
-    this.gameOver = true;                   // Tie game reset. If errors, delete this.
+    Display.boardRefresh();         // Tie game display message! 
+    Display.setMessage("It's a tie. Please try a new game."); 
+    this.gameOver = true;                   // Tie game reset. 
     }
 }
